@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProRevSum</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #ffffff;
+            padding: 20px;
+        }
+
+        .logo {
+            font-size: 5rem;
+            font-weight: bold;
+            color: #4285f4;
+            margin-bottom: 2rem;
+            user-select: none;
+        }
+
+        .search-form {
+            display: flex;
+            width: 100%;
+            max-width: 584px;
+        }
+
+        .search-form input[type="text"] {
+            flex: 1;
+            height: 46px;
+            padding: 0 20px;
+            font-size: 16px;
+            border: 1px solid #dfe1e5;
+            border-radius: 24px 0 0 24px;
+            outline: none;
+            box-shadow: 0 1px 6px rgba(32, 33, 36, 0.08);
+        }
+
+        .search-form input[type="text"]:focus {
+            box-shadow: 0 1px 10px rgba(32, 33, 36, 0.2);
+        }
+
+        .search-form button {
+            height: 46px;
+            padding: 0 24px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #ffffff;
+            background-color: #4285f4;
+            border: none;
+            border-radius: 0 24px 24px 0;
+            cursor: pointer;
+        }
+
+        .search-form button:hover {
+            background-color: #3367d6;
+        }
+
+        .tiles {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px;
+            width: 100%;
+            max-width: 900px;
+            margin-top: 2rem;
+        }
+
+        .tile {
+            width: 200px;
+            height: 200px;
+            border-radius: 12px;
+            background-color: #e8f0fe;
+            border-top: 6px solid #4285f4;
+            box-shadow: 0 1px 6px rgba(32, 33, 36, 0.12);
+            padding: 16px;
+            overflow: hidden;
+        }
+
+        .tile-heading {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1a73e8;
+            margin-bottom: 8px;
+            text-transform: capitalize;
+        }
+
+        .tile-body {
+            font-size: 14px;
+            color: #3c4043;
+            word-wrap: break-word;
+            overflow-y: auto;
+            max-height: 140px;
+        }
+
+        .message {
+            margin-top: 1rem;
+            font-size: 14px;
+            color: #d93025;
+        }
+    </style>
+</head>
+<body>
+    <div class="logo">ProRevSum</div>
+    <form class="search-form" method="get" action="/product-review-summarizer">
+        <input type="text" name="q" placeholder="Enter a product link or name" aria-label="Search">
+        <button type="submit">Summarize</button>
+    </form>
+    <div id="results" class="tiles"></div>
+    <div id="message" class="message"></div>
+    <script>
+        const form = document.querySelector('.search-form');
+        const results = document.getElementById('results');
+        const message = document.getElementById('message');
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const query = form.q.value.trim();
+            message.textContent = '';
+            results.innerHTML = '';
+
+            if (!query) {
+                message.textContent = 'Please enter a product link or name.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/product-review-summarizer?q=' + encodeURIComponent(query));
+                if (!response.ok) {
+                    message.textContent = 'Error: ' + response.status + ' ' + response.statusText;
+                    return;
+                }
+                const data = await response.json();
+                for (const [key, value] of Object.entries(data)) {
+                    const tile = document.createElement('div');
+                    tile.className = 'tile';
+
+                    const heading = document.createElement('h3');
+                    heading.className = 'tile-heading';
+                    heading.textContent = key;
+
+                    const body = document.createElement('p');
+                    body.className = 'tile-body';
+                    body.textContent = value;
+
+                    tile.appendChild(heading);
+                    tile.appendChild(body);
+                    results.appendChild(tile);
+                }
+            } catch (error) {
+                message.textContent = 'Failed to load summary.';
+            }
+        });
+    </script>
+</body>
+</html>
