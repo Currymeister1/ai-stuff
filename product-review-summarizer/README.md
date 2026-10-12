@@ -5,9 +5,10 @@ Fetching the reviews from an e-commerce website and summarizing them for
 - Customers, who are interested in the product. Each review category is separately summerized. 
 - Different product teams like shipping department, customer service so they can improve.
 
+## Reviews
+Reviews are sy
 
 ## External APIs
-To fetch the reviews, Canopyapi or Rainforest can be used.
 For summerizing OPENAI API will be used.
 
 ## Caching
