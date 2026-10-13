@@ -1,0 +1,27 @@
+[
+  {
+    "product_id": 1,
+    "product_name": "Final Phantasy",
+    "category": "Book"
+  },
+  {
+    "product_id": 2,
+    "product_name": "Super Duper Mixer",
+    "category": "Kitchen appliance"
+  },
+  {
+    "product_id": 3,
+    "product_name": "70's Tape Recorder",
+    "category": "Music"
+  },
+  {
+    "product_id": 4,
+    "product_name": "Vector 7 Pro",
+    "category": "Smartphone"
+  },
+  {
+    "product_id": 5,
+    "product_name": "Drill 450 Max",
+    "category": "Construction appliance"
+  }
+]

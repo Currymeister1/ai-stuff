@@ -6,7 +6,8 @@ Fetching the reviews from an e-commerce website and summarizing them for
 - Different product teams like shipping department, customer service so they can improve.
 
 ## Reviews
-Reviews are synthetic created using LLMs. [Prompt](src/main/resources/prompt.md)
+Reviews are synthetic created using LLMs. [Prompt](src/main/resources/prompt.md)  
+The LLM takes care of review generation. Everything which deterministic in nature is done manually.
 
 ## External APIs
 For summerizing OPENAI API will be used.

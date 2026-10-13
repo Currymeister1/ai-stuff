@@ -1,0 +1,19 @@
+{
+  "product_name": "Super Duper Mixer",
+  "reviews": [
+    {
+      "review_id": 1,
+      "reviewer_age": 42,
+      "review_stars": 1,
+      "required_topics": ["quality", "payment"],
+      "sentiment": "strongly negative"
+    },
+    {
+      "review_id": 2,
+      "reviewer_age": 25,
+      "review_stars": 4,
+      "required_topics": ["quality"],
+      "sentiment": "mostly positive"
+    }
+  ]
+}
