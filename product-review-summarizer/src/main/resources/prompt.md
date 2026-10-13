@@ -75,10 +75,6 @@ You are responsible for generating mock data for following products in following
 	</item>
 </Products>
 
-````
-
-
-````
 {
   "product_id": 1,
   "product_name": "Narnia",
