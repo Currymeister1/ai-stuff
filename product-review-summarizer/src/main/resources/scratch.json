@@ -1,0 +1,27 @@
+{
+  "product_id": 1,
+  "product_name": "Narnia",
+  "total_stars": 4,
+  "reviews": [
+    {
+      "review_title": "A very great book",
+      "review_text": "The book was very fun to read. It awakened feelings that are hard to describe.",
+      "review_stars": 5
+    },
+    {
+      "review_title": "Such an amazing book",
+      "review_text": "The author has done such a great job expressing herself",
+      "review_stars": 5
+    },
+    {
+      "review_title": "Just missing that one bit",
+      "review_text": "Enjoyed it quite a well but something is missing. Also, the delivery was kinda late. Yet, I still enjoyed waiting for it",
+      "review_stars": 4
+    },
+    {
+      "review_title": "Wrong order",
+      "review_text": "My kid ordered it without me noticing it. I thought I had to pay for it. But the customer support was nice and they gave me my money back and I got keep the book. The kiddo is happy",
+      "review_stars": 4
+    }
+  ]
+}
