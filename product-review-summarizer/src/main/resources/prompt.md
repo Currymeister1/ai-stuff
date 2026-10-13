@@ -4,7 +4,7 @@
 ````
 You are responsible for generating mock data for following products in following Products XML Tags: 
 
-- The mock data is for reviews
+- The mock data should be in JSON format
 - reviews-to-generate is the number of reviews to be generated.
 - Each product has a desired rating. This should be overall rating of the product. Make sure that each individual review sum up to this number.
 - Each product has age group range (= age-min and age-max). Using this range, reviews for a product should be generated with the manner and style for an age.
