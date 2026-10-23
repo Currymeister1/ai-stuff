@@ -1,0 +1,73 @@
+[
+  {
+    "product_id": 1,
+    "product_name": "Final Phantasy",
+    "category": "Book",
+    "age": {
+      "min": 14,
+      "max": 30
+    },
+    "review_id_range": {
+      "start": 1,
+      "end": 14
+    },
+    "general_review_stars": 5
+  },
+  {
+    "product_id": 2,
+    "product_name": "Super Duper Mixer",
+    "category": "Kitchen appliance",
+    "age": {
+      "min": 21,
+      "max": 57
+    },
+    "review_id_range": {
+      "start": 15,
+      "end": 31
+    },
+    "general_review_stars": 3
+  },
+  {
+    "product_id": 3,
+    "product_name": "70's Tape Recorder",
+    "category": "Music",
+    "age": {
+      "min": 40,
+      "max": 70
+    },
+    "review_id_range": {
+      "start": 32,
+      "end": 49
+    },
+    "general_review_stars": 4
+
+  },
+  {
+    "product_id": 4,
+    "product_name": "Vector 7 Pro",
+    "category": "Smartphone",
+    "age": {
+      "min": 14,
+      "max": 50
+    },
+    "review_id_range": {
+      "start": 50,
+      "end": 59
+    },
+    "general_review_stars": 1
+  },
+  {
+    "product_id": 5,
+    "product_name": "Drill 450 Max",
+    "category": "Construction appliance",
+    "age": {
+      "min": 25,
+      "max": 75
+    },
+    "review_id_range": {
+      "start": 60,
+      "end": 81
+    },
+    "general_review_stars": 2
+  }
+]

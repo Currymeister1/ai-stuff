@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProRevSum Admin</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            min-height: 100vh;
+            background-color: #ffffff;
+            padding: 32px 20px;
+            color: #202124;
+        }
+
+        .page {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #4285f4;
+        }
+
+        .home-link {
+            font-size: 14px;
+            font-weight: bold;
+            color: #4285f4;
+            text-decoration: none;
+        }
+
+        .home-link:hover {
+            text-decoration: underline;
+        }
+
+        .toolbar {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .generate-button {
+            height: 44px;
+            padding: 0 24px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #ffffff;
+            background-color: #4285f4;
+            border: none;
+            border-radius: 22px;
+            cursor: pointer;
+        }
+
+        .generate-button:hover:not(:disabled) {
+            background-color: #3367d6;
+        }
+
+        .generate-button:disabled {
+            background-color: #9aa0a6;
+            cursor: not-allowed;
+        }
+
+        .summary {
+            font-size: 14px;
+            color: #5f6368;
+        }
+
+        .message {
+            min-height: 20px;
+            margin-bottom: 16px;
+            font-size: 14px;
+        }
+
+        .message.error {
+            color: #d93025;
+        }
+
+        .message.success {
+            color: #188038;
+        }
+
+        .product-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .product-card {
+            border: 1px solid #dfe1e5;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 6px rgba(32, 33, 36, 0.08);
+        }
+
+        .product-header {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px 16px;
+            padding: 12px 16px;
+            background-color: #e8f0fe;
+            border-bottom: 1px solid #dfe1e5;
+        }
+
+        .product-name {
+            font-size: 16px;
+            font-weight: bold;
+            color: #1a73e8;
+        }
+
+        .product-meta {
+            font-size: 12px;
+            color: #5f6368;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        thead th {
+            background-color: #f8f9fa;
+            color: #5f6368;
+            font-weight: bold;
+            text-align: left;
+            padding: 10px 16px;
+            border-bottom: 1px solid #dfe1e5;
+            white-space: nowrap;
+        }
+
+        tbody td {
+            padding: 10px 16px;
+            border-bottom: 1px solid #f1f3f4;
+            vertical-align: top;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        tbody tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .empty-row td {
+            text-align: center;
+            color: #5f6368;
+            padding: 20px 16px;
+        }
+
+        .empty-state {
+            text-align: center;
+            color: #5f6368;
+            padding: 32px 16px;
+            border: 1px dashed #dfe1e5;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+    <header class="page-header">
+        <h1 class="page-title">Mock reviews</h1>
+        <a class="home-link" href="/">&larr; Back to search</a>
+    </header>
+
+    <div class="toolbar">
+        <button id="generate-button" class="generate-button" type="button">Generate mock reviews</button>
+        <button id="generate-llm-review-text-button" class="generate-button" type="button">Generate Review Texts with LLM</button>
+    </div>
+
+    <div id="summary" class="summary">
+    </div>
+    <div id="message" class="message" role="status" aria-live="polite"></div>
+
+    <div id="reviews" class="product-list">
+        <div class="empty-state">Loading reviews&hellip;</div>
+    </div>
+</div>
+
+<script>
+    const generateButton = document.getElementById('generate-button');
+    const summary = document.getElementById('summary');
+    const message = document.getElementById('message');
+    const reviewsContainer = document.getElementById('reviews');
+
+    function setMessage(text, type) {
+        message.textContent = text;
+        message.className = 'message' + (type ? ' ' + type : '');
+    }
+
+    function renderEmptyState(text) {
+        reviewsContainer.innerHTML = '';
+        const empty = document.createElement('div');
+        empty.className = 'empty-state';
+        empty.textContent = text;
+        reviewsContainer.appendChild(empty);
+    }
+
+    function createProductCard(product) {
+        const reviews = product.reviews || [];
+
+        const card = document.createElement('section');
+        card.className = 'product-card';
+
+        const header = document.createElement('div');
+        header.className = 'product-header';
+
+        const name = document.createElement('h2');
+        name.className = 'product-name';
+        name.textContent = product.product_name;
+
+        const meta = document.createElement('span');
+        meta.className = 'product-meta';
+        meta.textContent = 'Product ID ' + product.product_id +
+            ' \u00b7 ' + reviews.length +
+            (reviews.length === 1 ? ' review' : ' reviews');
+
+        header.appendChild(name);
+        header.appendChild(meta);
+        card.appendChild(header);
+
+        const table = document.createElement('table');
+        const thead = document.createElement('thead');
+        const headRow = document.createElement('tr');
+
+        for (const label of ['Review ID', 'Reviewer Age', 'Stars', 'Required Topics', 'LLM Generated Review']) {
+            const heading = document.createElement('th');
+            heading.textContent = label;
+            headRow.appendChild(heading);
+        }
+
+        thead.appendChild(headRow);
+
+        const tbody = document.createElement('tbody');
+
+        if (reviews.length === 0) {
+            const row = document.createElement('tr');
+            row.className = 'empty-row';
+
+            const cell = document.createElement('td');
+            cell.colSpan = 5;
+            cell.textContent = 'No reviews for this product.';
+
+            row.appendChild(cell);
+            tbody.appendChild(row);
+        } else {
+            for (const review of reviews) {
+                const row = document.createElement('tr');
+                const values = [
+                    review.review_id,
+                    review.reviewer_age,
+                    review.review_stars,
+                    (review.required_topics || []).join(', '),
+                ];
+
+                for (const value of values) {
+                    const cell = document.createElement('td');
+                    cell.textContent = value;
+                    row.appendChild(cell);
+                }
+
+                tbody.appendChild(row);
+            }
+        }
+
+        table.appendChild(thead);
+        table.appendChild(tbody);
+        card.appendChild(table);
+
+        return card;
+    }
+
+    function renderReviews(data) {
+        const products = Array.isArray(data.reviews) ? data.reviews : [];
+        const totalReviews = products.reduce(
+            (total, product) => total + (product.reviews || []).length,
+            0
+        );
+
+        summary.textContent = totalReviews +
+            (totalReviews === 1 ? ' review' : ' reviews') +
+            ' across ' + products.length +
+            (products.length === 1 ? ' product' : ' products');
+
+        reviewsContainer.innerHTML = '';
+
+        if (products.length === 0) {
+            renderEmptyState('No mock reviews yet. Generate some to get started.');
+            return;
+        }
+
+        for (const product of products) {
+            reviewsContainer.appendChild(createProductCard(product));
+        }
+    }
+
+    async function loadReviews() {
+        try {
+            const response = await fetch('/product-review/mock-reviews');
+            if (!response.ok) {
+                throw new Error(response.status + ' ' + response.statusText);
+            }
+            renderReviews(await response.json());
+        } catch (error) {
+            summary.textContent = '';
+            renderEmptyState('Unable to load mock reviews.');
+            setMessage('Failed to load reviews: ' + error.message, 'error');
+        }
+    }
+
+    async function generateReviews() {
+        generateButton.disabled = true;
+        generateButton.textContent = 'Generating\u2026';
+        setMessage('');
+
+        try {
+            const response = await fetch('/product-review/generate-mock-reviews', {
+                method: 'POST'
+            });
+            if (!response.ok) {
+                throw new Error(response.status + ' ' + response.statusText);
+            }
+            await loadReviews();
+            setMessage('Mock reviews generated.', 'success');
+        } catch (error) {
+            setMessage('Failed to generate reviews: ' + error.message, 'error');
+        } finally {
+            generateButton.disabled = false;
+            generateButton.textContent = 'Generate mock reviews';
+        }
+    }
+
+    generateButton.addEventListener('click', generateReviews);
+    loadReviews();
+</script>
+</body>
+</html>

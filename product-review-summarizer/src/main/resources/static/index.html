@@ -109,59 +109,74 @@
             font-size: 14px;
             color: #d93025;
         }
+
+        .admin-link {
+            position: fixed;
+            top: 16px;
+            right: 24px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #4285f4;
+            text-decoration: none;
+        }
+
+        .admin-link:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
-    <div class="logo">ProRevSum</div>
-    <form class="search-form" method="get" action="/product-review-summarizer">
-        <input type="text" name="q" placeholder="Enter a product link or name" aria-label="Search">
-        <button type="submit">Summarize</button>
-    </form>
-    <div id="results" class="tiles"></div>
-    <div id="message" class="message"></div>
-    <script>
-        const form = document.querySelector('.search-form');
-        const results = document.getElementById('results');
-        const message = document.getElementById('message');
+<a class="admin-link" href="/admin">Admin</a>
+<div class="logo">ProRevSum</div>
+<form class="search-form" method="get" action="/product-review-summarizer">
+    <input type="text" name="q" placeholder="Enter a product link or name" aria-label="Search">
+    <button type="submit">Summarize</button>
+</form>
+<div id="results" class="tiles"></div>
+<div id="message" class="message"></div>
+<script>
+    const form = document.querySelector('.search-form');
+    const results = document.getElementById('results');
+    const message = document.getElementById('message');
 
-        form.addEventListener('submit', async (event) => {
-            event.preventDefault();
-            const query = form.q.value.trim();
-            message.textContent = '';
-            results.innerHTML = '';
+    form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const query = form.q.value.trim();
+        message.textContent = '';
+        results.innerHTML = '';
 
-            if (!query) {
-                message.textContent = 'Please enter a product link or name.';
+        if (!query) {
+            message.textContent = 'Please enter a product link or name.';
+            return;
+        }
+
+        try {
+            const response = await fetch('/product-review-summarizer?q=' + encodeURIComponent(query));
+            if (!response.ok) {
+                message.textContent = 'Error: ' + response.status + ' ' + response.statusText;
                 return;
             }
+            const data = await response.json();
+            for (const [key, value] of Object.entries(data)) {
+                const tile = document.createElement('div');
+                tile.className = 'tile';
 
-            try {
-                const response = await fetch('/product-review-summarizer?q=' + encodeURIComponent(query));
-                if (!response.ok) {
-                    message.textContent = 'Error: ' + response.status + ' ' + response.statusText;
-                    return;
-                }
-                const data = await response.json();
-                for (const [key, value] of Object.entries(data)) {
-                    const tile = document.createElement('div');
-                    tile.className = 'tile';
+                const heading = document.createElement('h3');
+                heading.className = 'tile-heading';
+                heading.textContent = key;
 
-                    const heading = document.createElement('h3');
-                    heading.className = 'tile-heading';
-                    heading.textContent = key;
+                const body = document.createElement('p');
+                body.className = 'tile-body';
+                body.textContent = value;
 
-                    const body = document.createElement('p');
-                    body.className = 'tile-body';
-                    body.textContent = value;
-
-                    tile.appendChild(heading);
-                    tile.appendChild(body);
-                    results.appendChild(tile);
-                }
-            } catch (error) {
-                message.textContent = 'Failed to load summary.';
+                tile.appendChild(heading);
+                tile.appendChild(body);
+                results.appendChild(tile);
             }
-        });
-    </script>
+        } catch (error) {
+            message.textContent = 'Failed to load summary.';
+        }
+    });
+</script>
 </body>
 </html>
