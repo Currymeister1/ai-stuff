@@ -187,7 +187,7 @@
 
     <div class="toolbar">
         <button id="generate-button" class="generate-button" type="button">Generate mock reviews</button>
-        <button id="generate-llm-review-text-button" class="generate-button" type="button">Generate Review Texts with LLM</button>
+        <button id="generate-review-text-button" class="generate-button" type="button">Generate Review Texts with LLM</button>
     </div>
 
     <div id="summary" class="summary">
@@ -201,6 +201,7 @@
 
 <script>
     const generateButton = document.getElementById('generate-button');
+    const generateReviewTextButton = document.getElementById('generate-review-text-button');
     const summary = document.getElementById('summary');
     const message = document.getElementById('message');
     const reviewsContainer = document.getElementById('reviews');
@@ -273,6 +274,7 @@
                     review.reviewer_age,
                     review.review_stars,
                     (review.required_topics || []).join(', '),
+                    review.generated_review_title || '\u2014',
                 ];
 
                 for (const value of values) {
@@ -352,7 +354,30 @@
         }
     }
 
+
+    async function generateReviewText() {
+        generateReviewTextButton.disabled = true;
+        generateReviewTextButton.textContent = 'Generating\u2026';
+        setMessage('');
+        try {
+            const response = await fetch('/product-review/generate-text-for-reviews', {
+                method: 'POST'
+            });
+            if (!response.ok) {
+                throw new Error(response.status + ' ' + response.statusText);
+            }
+            await loadReviews();
+            setMessage('Review texts generated.', 'success');
+        } catch (error) {
+            setMessage('Failed to generate review texts: ' + error.message, 'error');
+        } finally {
+            generateReviewTextButton.disabled = false;
+            generateReviewTextButton.textContent = 'Generate Review Texts with LLM';
+        }
+    }
+
     generateButton.addEventListener('click', generateReviews);
+    generateReviewTextButton.addEventListener('click', generateReviewText);
     loadReviews();
 </script>
 </body>

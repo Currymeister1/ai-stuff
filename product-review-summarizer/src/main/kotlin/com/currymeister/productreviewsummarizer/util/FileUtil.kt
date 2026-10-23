@@ -33,6 +33,13 @@ object FileUtil {
         file.writeText(json.encodeToString(reviewResults))
     }
 
+    fun loadReviewsResultFile(): ReviewResults {
+        val file = File(REVIEWS_RESULT_FILE_NAME)
+        val content = if (file.isFile) file.readText() else return ReviewResults(emptyList())
+        if (content.isBlank()) return ReviewResults(emptyList())
+        return json.decodeFromString<ReviewResults>(content)
+    }
+
 
     private fun loadClasspathResource(fileName: String): String {
         val inputStream = LLMReviewGenerationService::class.java.classLoader
