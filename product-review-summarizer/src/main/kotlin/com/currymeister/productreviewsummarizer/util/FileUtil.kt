@@ -2,11 +2,13 @@ package com.currymeister.productreviewsummarizer.util
 
 import com.currymeister.productreviewsummarizer.config.AppConfig
 import com.currymeister.productreviewsummarizer.modal.ReviewFileEntries
+import com.currymeister.productreviewsummarizer.modal.ReviewResults
 import com.currymeister.productreviewsummarizer.service.LLMReviewGenerationService
 import java.io.File
 
 object FileUtil {
     private const val REVIEWS_FILE_NAME = "reviews.json"
+    private const val REVIEWS_RESULT_FILE_NAME = "reviews-result.json"
     private const val PRODUCTS_FILE_NAME = "products_review_config.json"
     private val json = AppConfig.jsonInstance
 
@@ -23,6 +25,12 @@ object FileUtil {
         val file = File(REVIEWS_FILE_NAME)
         file.parentFile?.mkdirs()
         file.writeText(json.encodeToString(reviewFileEntries))
+    }
+
+    fun writeReviewsResultFile(reviewResults: ReviewResults) {
+        val file = File(REVIEWS_RESULT_FILE_NAME)
+        file.parentFile?.mkdirs()
+        file.writeText(json.encodeToString(reviewResults))
     }
 
 

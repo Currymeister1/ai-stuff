@@ -60,11 +60,18 @@ data class ReviewEntryDto(
     @SerialName("reviewer_age") val reviewerAge: Int,
     @SerialName("review_stars") val reviewStars: Int,
     @SerialName("required_topics") val requiredTopics: List<String>,
-)
+) {
+    override fun toString() = Json.encodeToString(this)
+}
 
 @Serializable
 data class ReviewResult (
     @SerialName("review_id") val reviewId: Int,
     @SerialName("review_title") val reviewTitle: String,
     @SerialName("review_text") val reviewText: String,
+)
+
+@Serializable
+data class ReviewResults(
+    @SerialName("reviews") val reviews: List<ReviewResult>,
 )
