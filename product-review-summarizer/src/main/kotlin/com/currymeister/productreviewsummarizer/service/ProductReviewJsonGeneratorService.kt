@@ -30,8 +30,6 @@ class ProductReviewJsonGeneratorService {
         FileUtil.writeReviewsFile(reviewFileEntries)
     }
 
-    fun loadReviews(): ReviewFileEntries = FileUtil.loadReviewsFile()
-
     fun loadReviewsWithGeneratedTitles(): ReviewFileEntriesResponse {
         val reviewFileEntries = FileUtil.loadReviewsFile()
         val titlesByReviewId = FileUtil.loadReviewsResultFile()
