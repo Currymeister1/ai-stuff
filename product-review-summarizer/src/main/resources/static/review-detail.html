@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review detail - ProRevSum</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            min-height: 100vh;
+            background-color: #ffffff;
+            padding: 32px 20px;
+            color: #202124;
+        }
+
+        .page {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #4285f4;
+        }
+
+        .back-link {
+            font-size: 14px;
+            font-weight: bold;
+            color: #4285f4;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .card {
+            border: 1px solid #dfe1e5;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 6px rgba(32, 33, 36, 0.08);
+        }
+
+        .product-header {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px 16px;
+            padding: 12px 16px;
+            background-color: #e8f0fe;
+            border-bottom: 1px solid #dfe1e5;
+        }
+
+        .product-name {
+            font-size: 16px;
+            font-weight: bold;
+            color: #1a73e8;
+        }
+
+        .product-meta {
+            font-size: 12px;
+            color: #5f6368;
+        }
+
+        .review {
+            padding: 20px 16px 24px;
+        }
+
+        .review-title {
+            font-size: 22px;
+            line-height: 1.3;
+            color: #202124;
+            margin-bottom: 16px;
+        }
+
+        .review-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px 24px;
+            padding: 12px 16px;
+            margin-bottom: 20px;
+            background-color: #f8f9fa;
+            border: 1px solid #f1f3f4;
+            border-radius: 8px;
+        }
+
+        .meta-label {
+            display: block;
+            font-size: 11px;
+            font-weight: bold;
+            color: #5f6368;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            margin-bottom: 4px;
+        }
+
+        .meta-value {
+            font-size: 14px;
+            color: #202124;
+        }
+
+        .review-text {
+            font-size: 15px;
+            line-height: 1.65;
+            color: #3c4043;
+            white-space: pre-wrap;
+        }
+
+        .empty-state {
+            text-align: center;
+            color: #5f6368;
+            padding: 32px 16px;
+            border: 1px dashed #dfe1e5;
+            border-radius: 8px;
+        }
+
+        .message {
+            min-height: 20px;
+            font-size: 14px;
+            color: #d93025;
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+    <header class="page-header">
+        <h1 class="page-title">Review detail</h1>
+        <a class="back-link" href="/admin">&larr; Back to admin</a>
+    </header>
+
+    <div id="content">
+        <div class="empty-state">Loading review&hellip;</div>
+    </div>
+</div>
+
+<script>
+    const content = document.getElementById('content');
+
+    function renderMessage(text) {
+        content.innerHTML = '';
+        const message = document.createElement('div');
+        message.className = 'message';
+        message.textContent = text;
+        content.appendChild(message);
+    }
+
+    function createMeta(label, value) {
+        const wrapper = document.createElement('div');
+
+        const labelElement = document.createElement('span');
+        labelElement.className = 'meta-label';
+        labelElement.textContent = label;
+
+        const valueElement = document.createElement('span');
+        valueElement.className = 'meta-value';
+        valueElement.textContent = value;
+
+        wrapper.appendChild(labelElement);
+        wrapper.appendChild(valueElement);
+        return wrapper;
+    }
+
+    function renderDetail(detail) {
+        content.innerHTML = '';
+
+        const card = document.createElement('section');
+        card.className = 'card';
+
+        const header = document.createElement('div');
+        header.className = 'product-header';
+
+        const productName = document.createElement('h2');
+        productName.className = 'product-name';
+        productName.textContent = detail.product_name;
+
+        const productMeta = document.createElement('span');
+        productMeta.className = 'product-meta';
+        productMeta.textContent = 'Product ID ' + detail.product_id;
+
+        header.appendChild(productName);
+        header.appendChild(productMeta);
+        card.appendChild(header);
+
+        const review = document.createElement('div');
+        review.className = 'review';
+
+        const title = document.createElement('h3');
+        title.className = 'review-title';
+        title.textContent = detail.review_title || 'No generated review title';
+        review.appendChild(title);
+
+        const meta = document.createElement('div');
+        meta.className = 'review-meta';
+        meta.appendChild(createMeta('Review ID', String(detail.review_id)));
+        meta.appendChild(createMeta('Reviewer Age', String(detail.reviewer_age)));
+        meta.appendChild(createMeta('Stars', String(detail.review_stars)));
+        meta.appendChild(createMeta(
+            'Required Topics',
+            (detail.required_topics || []).join(', ') || '\u2014'
+        ));
+        review.appendChild(meta);
+
+        const text = document.createElement('p');
+        text.className = 'review-text';
+        text.textContent = detail.review_text || 'No generated review text.';
+        review.appendChild(text);
+
+        card.appendChild(review);
+        content.appendChild(card);
+    }
+
+    async function loadReview() {
+        const reviewId = new URLSearchParams(window.location.search).get('reviewId');
+
+        if (!reviewId || !/^\d+$/.test(reviewId)) {
+            renderMessage('No valid review ID was provided.');
+            return;
+        }
+
+        try {
+            const response = await fetch(
+                '/product-review/mock-reviews/' + encodeURIComponent(reviewId)
+            );
+
+            if (response.status === 404) {
+                renderMessage('Review ' + reviewId + ' was not found.');
+                return;
+            }
+
+            if (!response.ok) {
+                throw new Error(response.status + ' ' + response.statusText);
+            }
+
+            renderDetail(await response.json());
+        } catch (error) {
+            renderMessage('Failed to load review: ' + error.message);
+        }
+    }
+
+    loadReview();
+</script>
+</body>
+</html>

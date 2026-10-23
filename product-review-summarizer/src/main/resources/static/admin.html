@@ -176,6 +176,15 @@
             border: 1px dashed #dfe1e5;
             border-radius: 8px;
         }
+
+        .review-link {
+            color: #1a73e8;
+            text-decoration: none;
+        }
+
+        .review-link:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -274,7 +283,6 @@
                     review.reviewer_age,
                     review.review_stars,
                     (review.required_topics || []).join(', '),
-                    review.generated_review_title || '\u2014',
                 ];
 
                 for (const value of values) {
@@ -283,6 +291,19 @@
                     row.appendChild(cell);
                 }
 
+                const titleCell = document.createElement('td');
+
+                if (review.generated_review_title) {
+                    const link = document.createElement('a');
+                    link.className = 'review-link';
+                    link.href = '/review-detail.html?reviewId=' + encodeURIComponent(review.review_id);
+                    link.textContent = review.generated_review_title;
+                    titleCell.appendChild(link);
+                } else {
+                    titleCell.textContent = '\u2014';
+                }
+
+                row.appendChild(titleCell);
                 tbody.appendChild(row);
             }
         }

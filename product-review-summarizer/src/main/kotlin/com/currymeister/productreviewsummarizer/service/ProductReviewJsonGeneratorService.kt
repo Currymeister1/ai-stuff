@@ -2,6 +2,7 @@ package com.currymeister.productreviewsummarizer.service
 
 import com.currymeister.productreviewsummarizer.config.AppConfig
 import com.currymeister.productreviewsummarizer.modal.ProductsConfigFile
+import com.currymeister.productreviewsummarizer.modal.ReviewDetailResponse
 import com.currymeister.productreviewsummarizer.modal.ReviewEntryDto
 import com.currymeister.productreviewsummarizer.modal.ReviewEntryResponse
 import com.currymeister.productreviewsummarizer.modal.ReviewFileEntries
@@ -52,6 +53,27 @@ class ProductReviewJsonGeneratorService {
                     },
                 )
             },
+        )
+    }
+
+    fun loadReviewDetail(reviewId: Int): ReviewDetailResponse? {
+        val reviewFileEntry = FileUtil.loadReviewsFile().reviews
+            .firstOrNull { entry -> entry.reviews.any { it.reviewId == reviewId } }
+            ?: return null
+
+        val review = reviewFileEntry.reviews.first { it.reviewId == reviewId }
+        val generatedReview = FileUtil.loadReviewsResultFile().reviews
+            .firstOrNull { it.reviewId == reviewId }
+
+        return ReviewDetailResponse(
+            productId = reviewFileEntry.productId,
+            productName = reviewFileEntry.productName,
+            reviewId = review.reviewId,
+            reviewerAge = review.reviewerAge,
+            reviewStars = review.reviewStars,
+            requiredTopics = review.requiredTopics,
+            reviewTitle = generatedReview?.reviewTitle,
+            reviewText = generatedReview?.reviewText,
         )
     }
 

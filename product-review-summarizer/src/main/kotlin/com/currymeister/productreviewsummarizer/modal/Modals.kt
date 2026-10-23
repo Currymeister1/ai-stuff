@@ -96,3 +96,15 @@ data class ReviewsFileEntryResponse(
 data class ReviewFileEntriesResponse(
     @SerialName("reviews") val reviews: List<ReviewsFileEntryResponse>,
 )
+
+@Serializable
+data class ReviewDetailResponse(
+    @SerialName("product_id") val productId: Int,
+    @SerialName("product_name") val productName: String,
+    @SerialName("review_id") val reviewId: Int,
+    @SerialName("reviewer_age") val reviewerAge: Int,
+    @SerialName("review_stars") val reviewStars: Int,
+    @SerialName("required_topics") val requiredTopics: List<String>,
+    @SerialName("review_title") val reviewTitle: String? = null,
+    @SerialName("review_text") val reviewText: String? = null,
+)
