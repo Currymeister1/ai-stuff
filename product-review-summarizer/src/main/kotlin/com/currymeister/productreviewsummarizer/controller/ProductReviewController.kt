@@ -22,5 +22,5 @@ class ProductReviewController(
 
     @GetMapping("/mock-reviews")
     fun getMockReviews(): ReviewFileEntries =
-        productReviewJsonGeneratorService.loadReviewsFile()
+        productReviewJsonGeneratorService.loadReviews()
 }

@@ -7,7 +7,7 @@ import java.io.File
 
 object FileUtil {
     private const val REVIEWS_FILE_NAME = "reviews.json"
-    private const val PRODUCTS_FILE_NAME = "products_config.json"
+    private const val PRODUCTS_FILE_NAME = "products_review_config.json"
     private val json = AppConfig.jsonInstance
 
 

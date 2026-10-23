@@ -20,38 +20,38 @@ repositories {
 	mavenCentral()
 }
 
+
 dependencies {
+// Spring Boot Starters & Persistence
 	implementation("org.springframework.boot:spring-boot-h2console")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-validation")
 	implementation("org.springframework.boot:spring-boot-starter-webmvc")
+
+	// Kotlin Core & Serialization
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib")
-	implementation("tools.jackson.module:jackson-module-kotlin")
-	implementation("org.postgresql:postgresql")
-	implementation("org.flywaydb:flyway-core")
-	implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")// 1. LangChain4j Bill of Materials (BOM) to align all dependency versions
-	implementation(platform("dev.langchain4j:langchain4j-bom:1.22.0"))
-
-	// 2. Core LangChain4j library & Kotlin extensions (coroutines, type-safe builders)
-	implementation("dev.langchain4j:langchain4j")
-	implementation("dev.langchain4j:langchain4j-kotlin")
-
-	// 3. Choose your LLM provider integration (e.g., OpenAI)
-	implementation("dev.langchain4j:langchain4j-open-ai")
-
-	// 4. Kotlin Serialization / Jackson (Recommended if using data classes or structured outputs)
-	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-
-	// 5. Coroutines (If you plan to leverage async/suspend features from langchain4j-kotlin)
+	implementation("com.fasterxml.jackson.module:jackson-module-kotlin") // Cleaned up (kept standard Jackson)
+	implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
 	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.1")
 
-	implementation("dev.langchain4j:langchain4j-spring-boot-starter:1.0.0-beta1")
-
-	// 6. Logging (SLF4J implementation required to see internal logs)
-	implementation("org.slf4j:slf4j-simple:2.0.16")
-	implementation("io.github.cdimascio:dotenv-kotlin:6.5.1")
+	// Database & Migrations
+	implementation("org.postgresql:postgresql")
+	implementation("org.flywaydb:flyway-core")
 	runtimeOnly("com.h2database:h2")
+
+	// Environment Variables
+	implementation("io.github.cdimascio:dotenv-kotlin:6.5.1")
+
+	// LangChain4j (Managed uniformly by the BOM version 1.22.0)
+	implementation(platform("dev.langchain4j:langchain4j-bom:1.22.0"))
+	implementation("dev.langchain4j:langchain4j")
+	implementation("dev.langchain4j:langchain4j-kotlin")
+	implementation("dev.langchain4j:langchain4j-open-ai")
+	implementation("dev.langchain4j:langchain4j-spring-boot-starter") // Version omitted so BOM manages it seamlessly
+
+	// Testing
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.boot:spring-boot-starter-data-jpa-test")
 	testImplementation("org.springframework.boot:spring-boot-starter-validation-test")
 	testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")

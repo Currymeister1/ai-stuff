@@ -1,0 +1,807 @@
+{
+    "reviews": [
+        {
+            "product_id": 1,
+            "product_name": "Final Phantasy",
+            "reviews": [
+                {
+                    "review_id": 1,
+                    "reviewer_age": 29,
+                    "review_stars": 5,
+                    "required_topics": [
+                        "payment",
+                        "shipping"
+                    ]
+                },
+                {
+                    "review_id": 2,
+                    "reviewer_age": 20,
+                    "review_stars": 5,
+                    "required_topics": [
+                        "quality",
+                        "payment",
+                        "shipping"
+                    ]
+                },
+                {
+                    "review_id": 3,
+                    "reviewer_age": 23,
+                    "review_stars": 5,
+                    "required_topics": [
+                        "payment",
+                        "shipping",
+                        "quality"
+                    ]
+                },
+                {
+                    "review_id": 4,
+                    "reviewer_age": 28,
+                    "review_stars": 2,
+                    "required_topics": [
+                        "payment",
+                        "customer-care",
+                        "shipping",
+                        "quality"
+                    ]
+                },
+                {
+                    "review_id": 5,
+                    "reviewer_age": 24,
+                    "review_stars": 3,
+                    "required_topics": [
+                        "shipping",
+                        "quality",
+                        "payment",
+                        "customer-care"
+                    ]
+                },
+                {
+                    "review_id": 6,
+                    "reviewer_age": 29,
+                    "review_stars": 5,
+                    "required_topics": [
+                        "shipping",
+                        "payment",
+                        "customer-care"
+                    ]
+                },
+                {
+                    "review_id": 7,
+                    "reviewer_age": 27,
+                    "review_stars": 3,
+                    "required_topics": [
+                        "payment"
+                    ]
+                },
+                {
+                    "review_id": 8,
+                    "reviewer_age": 25,
+                    "review_stars": 5,
+                    "required_topics": [
+                        "payment",
+                        "customer-care",
+                        "shipping"
+                    ]
+                },
+                {
+                    "review_id": 9,
+                    "reviewer_age": 25,
+                    "review_stars": 1,
+                    "required_topics": [
+                        "payment",
+                        "customer-care",
+                        "quality",
+                        "shipping"
+                    ]
+                },
+                {
+                    "review_id": 10,
+                    "reviewer_age": 14,
+                    "review_stars": 5,
+                    "required_topics": [
+                        "quality"
+                    ]
+                },
+                {
+                    "review_id": 11,
+                    "reviewer_age": 28,
+                    "review_stars": 5,
+                    "required_topics": [
+                        "customer-care",
+                        "quality"
+                    ]
+                },
+                {
+                    "review_id": 12,
+                    "reviewer_age": 22,
+                    "review_stars": 4,
+                    "required_topics": [
+                        "payment",
+                        "customer-care",
+                        "shipping",
+                        "quality"
+                    ]
+                },
+                {
+                    "review_id": 13,
+                    "reviewer_age": 24,
+                    "review_stars": 5,
+                    "required_topics": [
+                        "payment",
+                        "shipping"
+                    ]
+                },
+                {
+                    "review_id": 14,
+                    "reviewer_age": 18,
+                    "review_stars": 3,
+                    "required_topics": [
+                        "customer-care",
+                        "quality",
+                        "payment"
+                    ]
+                }
+            ]
+        },
+        {
+            "product_id": 2,
+            "product_name": "Super Duper Mixer",
+            "reviews": [
+                {
+                    "review_id": 15,
+                    "reviewer_age": 27,
+                    "review_stars": 3,
+                    "required_topics": [
+                        "payment",
+                        "quality"
+                    ]
+                },
+                {
+                    "review_id": 16,
+                    "reviewer_age": 36,
+                    "review_stars": 3,
+                    "required_topics": [
+                        "customer-care",
+                        "shipping",
+                        "quality"
+                    ]
+                },
+                {
+                    "review_id": 17,
+                    "reviewer_age": 37,
+                    "review_stars": 3,
+                    "required_topics": [
+                        "customer-care",
+                        "quality",
+                        "shipping"
+                    ]
+                },
+                {
+                    "review_id": 18,
+                    "reviewer_age": 36,
+                    "review_stars": 4,
+                    "required_topics": [
+                        "customer-care",
+                        "quality",
+                        "payment",
+                        "shipping"
+                    ]
+                },
+                {
+                    "review_id": 19,
+                    "reviewer_age": 49,
+                    "review_stars": 3,
+                    "required_topics": [
+                        "shipping",
+                        "quality",
+                        "customer-care",
+                        "payment"
+                    ]
+                },
+                {
+                    "review_id": 20,
+                    "reviewer_age": 39,
+                    "review_stars": 3,
+                    "required_topics": [
+                        "shipping"
+                    ]
+                },
+                {
+                    "review_id": 21,
+                    "reviewer_age": 31,
+                    "review_stars": 3,
+                    "required_topics": [
+                        "customer-care",
+                        "quality"
+                    ]
+                },
+                {
+                    "review_id": 22,
+                    "reviewer_age": 23,
+                    "review_stars": 3,
+                    "required_topics": [
+                        "customer-care",
+                        "quality",
+                        "shipping"
+                    ]
+                },
+                {
+                    "review_id": 23,
+                    "reviewer_age": 52,
+                    "review_stars": 3,
+                    "required_topics": [
+                        "payment",
+                        "quality",
+                        "shipping"
+                    ]
+                },
+                {
+                    "review_id": 24,
+                    "reviewer_age": 54,
+                    "review_stars": 3,
+                    "required_topics": [
+                        "customer-care",
+                        "quality",
+                        "shipping"
+                    ]
+                },
+                {
+                    "review_id": 25,
+                    "reviewer_age": 30,
+                    "review_stars": 3,
+                    "required_topics": [
+                        "quality"
+                    ]
+                },
+                {
+                    "review_id": 26,
+                    "reviewer_age": 41,
+                    "review_stars": 3,
+                    "required_topics": [
+                        "payment",
+                        "quality"
+                    ]
+                },
+                {
+                    "review_id": 27,
+                    "reviewer_age": 56,
+                    "review_stars": 3,
+                    "required_topics": [
+                        "shipping"
+                    ]
+                },
+                {
+                    "review_id": 28,
+                    "reviewer_age": 50,
+                    "review_stars": 3,
+                    "required_topics": [
+                        "payment"
+                    ]
+                },
+                {
+                    "review_id": 29,
+                    "reviewer_age": 28,
+                    "review_stars": 2,
+                    "required_topics": [
+                        "shipping",
+                        "customer-care",
+                        "quality",
+                        "payment"
+                    ]
+                },
+                {
+                    "review_id": 30,
+                    "reviewer_age": 30,
+                    "review_stars": 3,
+                    "required_topics": [
+                        "customer-care",
+                        "quality",
+                        "payment"
+                    ]
+                },
+                {
+                    "review_id": 31,
+                    "reviewer_age": 25,
+                    "review_stars": 3,
+                    "required_topics": [
+                        "shipping",
+                        "payment",
+                        "customer-care"
+                    ]
+                }
+            ]
+        },
+        {
+            "product_id": 3,
+            "product_name": "70's Tape Recorder",
+            "reviews": [
+                {
+                    "review_id": 32,
+                    "reviewer_age": 68,
+                    "review_stars": 2,
+                    "required_topics": [
+                        "shipping",
+                        "quality"
+                    ]
+                },
+                {
+                    "review_id": 33,
+                    "reviewer_age": 57,
+                    "review_stars": 4,
+                    "required_topics": [
+                        "quality",
+                        "payment",
+                        "customer-care",
+                        "shipping"
+                    ]
+                },
+                {
+                    "review_id": 34,
+                    "reviewer_age": 45,
+                    "review_stars": 4,
+                    "required_topics": [
+                        "shipping",
+                        "quality",
+                        "payment",
+                        "customer-care"
+                    ]
+                },
+                {
+                    "review_id": 35,
+                    "reviewer_age": 67,
+                    "review_stars": 2,
+                    "required_topics": [
+                        "shipping",
+                        "quality"
+                    ]
+                },
+                {
+                    "review_id": 36,
+                    "reviewer_age": 70,
+                    "review_stars": 4,
+                    "required_topics": [
+                        "shipping"
+                    ]
+                },
+                {
+                    "review_id": 37,
+                    "reviewer_age": 58,
+                    "review_stars": 3,
+                    "required_topics": [
+                        "customer-care"
+                    ]
+                },
+                {
+                    "review_id": 38,
+                    "reviewer_age": 67,
+                    "review_stars": 5,
+                    "required_topics": [
+                        "quality",
+                        "shipping",
+                        "payment"
+                    ]
+                },
+                {
+                    "review_id": 39,
+                    "reviewer_age": 40,
+                    "review_stars": 4,
+                    "required_topics": [
+                        "shipping"
+                    ]
+                },
+                {
+                    "review_id": 40,
+                    "reviewer_age": 67,
+                    "review_stars": 4,
+                    "required_topics": [
+                        "shipping"
+                    ]
+                },
+                {
+                    "review_id": 41,
+                    "reviewer_age": 59,
+                    "review_stars": 4,
+                    "required_topics": [
+                        "payment"
+                    ]
+                },
+                {
+                    "review_id": 42,
+                    "reviewer_age": 42,
+                    "review_stars": 4,
+                    "required_topics": [
+                        "quality",
+                        "shipping",
+                        "payment"
+                    ]
+                },
+                {
+                    "review_id": 43,
+                    "reviewer_age": 49,
+                    "review_stars": 3,
+                    "required_topics": [
+                        "customer-care",
+                        "shipping"
+                    ]
+                },
+                {
+                    "review_id": 44,
+                    "reviewer_age": 54,
+                    "review_stars": 4,
+                    "required_topics": [
+                        "customer-care"
+                    ]
+                },
+                {
+                    "review_id": 45,
+                    "reviewer_age": 66,
+                    "review_stars": 4,
+                    "required_topics": [
+                        "shipping",
+                        "quality",
+                        "payment"
+                    ]
+                },
+                {
+                    "review_id": 46,
+                    "reviewer_age": 60,
+                    "review_stars": 4,
+                    "required_topics": [
+                        "quality"
+                    ]
+                },
+                {
+                    "review_id": 47,
+                    "reviewer_age": 44,
+                    "review_stars": 4,
+                    "required_topics": [
+                        "quality",
+                        "shipping"
+                    ]
+                },
+                {
+                    "review_id": 48,
+                    "reviewer_age": 66,
+                    "review_stars": 4,
+                    "required_topics": [
+                        "payment",
+                        "shipping",
+                        "customer-care",
+                        "quality"
+                    ]
+                },
+                {
+                    "review_id": 49,
+                    "reviewer_age": 40,
+                    "review_stars": 1,
+                    "required_topics": [
+                        "shipping",
+                        "quality"
+                    ]
+                }
+            ]
+        },
+        {
+            "product_id": 4,
+            "product_name": "Vector 7 Pro",
+            "reviews": [
+                {
+                    "review_id": 50,
+                    "reviewer_age": 38,
+                    "review_stars": 1,
+                    "required_topics": [
+                        "customer-care",
+                        "quality",
+                        "payment"
+                    ]
+                },
+                {
+                    "review_id": 51,
+                    "reviewer_age": 40,
+                    "review_stars": 1,
+                    "required_topics": [
+                        "payment",
+                        "quality",
+                        "shipping"
+                    ]
+                },
+                {
+                    "review_id": 52,
+                    "reviewer_age": 37,
+                    "review_stars": 3,
+                    "required_topics": [
+                        "customer-care",
+                        "payment",
+                        "quality",
+                        "shipping"
+                    ]
+                },
+                {
+                    "review_id": 53,
+                    "reviewer_age": 46,
+                    "review_stars": 2,
+                    "required_topics": [
+                        "customer-care",
+                        "payment",
+                        "quality",
+                        "shipping"
+                    ]
+                },
+                {
+                    "review_id": 54,
+                    "reviewer_age": 26,
+                    "review_stars": 2,
+                    "required_topics": [
+                        "customer-care",
+                        "quality",
+                        "payment",
+                        "shipping"
+                    ]
+                },
+                {
+                    "review_id": 55,
+                    "reviewer_age": 21,
+                    "review_stars": 1,
+                    "required_topics": [
+                        "payment"
+                    ]
+                },
+                {
+                    "review_id": 56,
+                    "reviewer_age": 22,
+                    "review_stars": 1,
+                    "required_topics": [
+                        "customer-care",
+                        "shipping",
+                        "quality"
+                    ]
+                },
+                {
+                    "review_id": 57,
+                    "reviewer_age": 35,
+                    "review_stars": 2,
+                    "required_topics": [
+                        "payment",
+                        "shipping",
+                        "quality",
+                        "customer-care"
+                    ]
+                },
+                {
+                    "review_id": 58,
+                    "reviewer_age": 33,
+                    "review_stars": 1,
+                    "required_topics": [
+                        "shipping"
+                    ]
+                },
+                {
+                    "review_id": 59,
+                    "reviewer_age": 41,
+                    "review_stars": 1,
+                    "required_topics": [
+                        "quality",
+                        "customer-care"
+                    ]
+                }
+            ]
+        },
+        {
+            "product_id": 5,
+            "product_name": "Drill 450 Max",
+            "reviews": [
+                {
+                    "review_id": 60,
+                    "reviewer_age": 26,
+                    "review_stars": 3,
+                    "required_topics": [
+                        "quality",
+                        "payment",
+                        "customer-care",
+                        "shipping"
+                    ]
+                },
+                {
+                    "review_id": 61,
+                    "reviewer_age": 66,
+                    "review_stars": 5,
+                    "required_topics": [
+                        "quality",
+                        "shipping"
+                    ]
+                },
+                {
+                    "review_id": 62,
+                    "reviewer_age": 69,
+                    "review_stars": 2,
+                    "required_topics": [
+                        "quality"
+                    ]
+                },
+                {
+                    "review_id": 63,
+                    "reviewer_age": 51,
+                    "review_stars": 2,
+                    "required_topics": [
+                        "quality",
+                        "customer-care",
+                        "payment",
+                        "shipping"
+                    ]
+                },
+                {
+                    "review_id": 64,
+                    "reviewer_age": 38,
+                    "review_stars": 2,
+                    "required_topics": [
+                        "customer-care",
+                        "shipping",
+                        "quality",
+                        "payment"
+                    ]
+                },
+                {
+                    "review_id": 65,
+                    "reviewer_age": 73,
+                    "review_stars": 2,
+                    "required_topics": [
+                        "quality"
+                    ]
+                },
+                {
+                    "review_id": 66,
+                    "reviewer_age": 67,
+                    "review_stars": 2,
+                    "required_topics": [
+                        "payment"
+                    ]
+                },
+                {
+                    "review_id": 67,
+                    "reviewer_age": 64,
+                    "review_stars": 2,
+                    "required_topics": [
+                        "customer-care",
+                        "shipping",
+                        "quality",
+                        "payment"
+                    ]
+                },
+                {
+                    "review_id": 68,
+                    "reviewer_age": 67,
+                    "review_stars": 2,
+                    "required_topics": [
+                        "payment",
+                        "customer-care",
+                        "shipping"
+                    ]
+                },
+                {
+                    "review_id": 69,
+                    "reviewer_age": 39,
+                    "review_stars": 2,
+                    "required_topics": [
+                        "quality"
+                    ]
+                },
+                {
+                    "review_id": 70,
+                    "reviewer_age": 49,
+                    "review_stars": 2,
+                    "required_topics": [
+                        "shipping",
+                        "payment",
+                        "customer-care",
+                        "quality"
+                    ]
+                },
+                {
+                    "review_id": 71,
+                    "reviewer_age": 31,
+                    "review_stars": 2,
+                    "required_topics": [
+                        "customer-care"
+                    ]
+                },
+                {
+                    "review_id": 72,
+                    "reviewer_age": 47,
+                    "review_stars": 1,
+                    "required_topics": [
+                        "quality"
+                    ]
+                },
+                {
+                    "review_id": 73,
+                    "reviewer_age": 27,
+                    "review_stars": 2,
+                    "required_topics": [
+                        "customer-care"
+                    ]
+                },
+                {
+                    "review_id": 74,
+                    "reviewer_age": 32,
+                    "review_stars": 2,
+                    "required_topics": [
+                        "quality",
+                        "payment"
+                    ]
+                },
+                {
+                    "review_id": 75,
+                    "reviewer_age": 46,
+                    "review_stars": 2,
+                    "required_topics": [
+                        "quality",
+                        "customer-care",
+                        "payment",
+                        "shipping"
+                    ]
+                },
+                {
+                    "review_id": 76,
+                    "reviewer_age": 32,
+                    "review_stars": 2,
+                    "required_topics": [
+                        "shipping",
+                        "customer-care",
+                        "payment"
+                    ]
+                },
+                {
+                    "review_id": 77,
+                    "reviewer_age": 37,
+                    "review_stars": 2,
+                    "required_topics": [
+                        "payment"
+                    ]
+                },
+                {
+                    "review_id": 78,
+                    "reviewer_age": 69,
+                    "review_stars": 2,
+                    "required_topics": [
+                        "customer-care",
+                        "quality",
+                        "shipping"
+                    ]
+                },
+                {
+                    "review_id": 79,
+                    "reviewer_age": 44,
+                    "review_stars": 1,
+                    "required_topics": [
+                        "payment",
+                        "shipping",
+                        "customer-care",
+                        "quality"
+                    ]
+                },
+                {
+                    "review_id": 80,
+                    "reviewer_age": 38,
+                    "review_stars": 1,
+                    "required_topics": [
+                        "payment",
+                        "quality",
+                        "shipping",
+                        "customer-care"
+                    ]
+                },
+                {
+                    "review_id": 81,
+                    "reviewer_age": 35,
+                    "review_stars": 4,
+                    "required_topics": [
+                        "payment",
+                        "customer-care",
+                        "shipping",
+                        "quality"
+                    ]
+                }
+            ]
+        }
+    ]
+}

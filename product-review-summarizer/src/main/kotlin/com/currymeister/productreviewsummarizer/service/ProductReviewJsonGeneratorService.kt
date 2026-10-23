@@ -27,6 +27,8 @@ class ProductReviewJsonGeneratorService {
         FileUtil.writeReviewsFile(reviewFileEntries)
     }
 
+    fun loadReviews(): ReviewFileEntries = FileUtil.loadReviewsFile()
+
 
     private fun generateReviewEntry(productConfig: ProductsConfigFile): ReviewsFileEntry {
         val reviews = productConfig.getReviewIdRange().map { reviewId ->
