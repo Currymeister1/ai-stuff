@@ -236,7 +236,7 @@
 
         try {
             const response = await fetch(
-                '/product-review/mock-reviews/' + encodeURIComponent(reviewId)
+                '/admin/product-review/mock-reviews/' + encodeURIComponent(reviewId)
             );
 
             if (response.status === 404) {

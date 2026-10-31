@@ -1,4 +1,4 @@
-package com.currymeister.productreviewsummarizer.controller
+package com.currymeister.productreviewsummarizer.controller.admin
 
 import com.currymeister.productreviewsummarizer.dto.CreateProductRequest
 import com.currymeister.productreviewsummarizer.dto.ProductCreatedResponse

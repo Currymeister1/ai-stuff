@@ -1,4 +1,4 @@
-package com.currymeister.productreviewsummarizer.controller
+package com.currymeister.productreviewsummarizer.controller.admin
 
 import com.currymeister.productreviewsummarizer.dto.ReviewDetailResponse
 import com.currymeister.productreviewsummarizer.dto.ReviewOverviewResponse
@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("/product-review")
-class ProductReviewController(
+@RequestMapping("admin/product-review")
+class ProductReviewAdminController(
     private val productReviewService: ProductReviewService,
     private val llmReviewGenerationService: LLMReviewGenerationService,
 ) {
