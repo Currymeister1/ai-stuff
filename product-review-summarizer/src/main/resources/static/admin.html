@@ -202,6 +202,7 @@
         <a class="generate-button" href="/admin/products/new">Create product</a>
         <button id="generate-button" class="generate-button" type="button">Generate mock reviews</button>
         <button id="generate-review-text-button" class="generate-button" type="button">Generate Review Texts with LLM</button>
+        <button id="embed-reviews" class="generate-button" type="button">Embed Reviews</button>
     </div>
 
     <div id="summary" class="summary">
@@ -216,6 +217,7 @@
 <script>
     const generateButton = document.getElementById('generate-button');
     const generateReviewTextButton = document.getElementById('generate-review-text-button');
+    const embedReviewsButton = document.getElementById('embed-reviews');
     const summary = document.getElementById('summary');
     const message = document.getElementById('message');
     const reviewsContainer = document.getElementById('reviews');
@@ -402,8 +404,29 @@
         }
     }
 
+    async function embedReviews() {
+        embedReviewsButton.disabled = true;
+        embedReviewsButton.textContent = 'Embedding\u2026';
+        setMessage('');
+        try {
+            const response = await fetch('/admin/product-review/embed-reviews', {
+                method: 'POST'
+            });
+            if (!response.ok) {
+                throw new Error(response.status + ' ' + response.statusText);
+            }
+            await loadReviews();
+            setMessage('Embedding done.', 'success');
+        } catch (error) {
+            setMessage('Embedding failed: ' + error.message, 'error');
+        } finally {
+            embedReviewsButton.disabled = false;
+            embedReviewsButton.textContent = 'Embed Reviews';
+        }
+    }
     generateButton.addEventListener('click', generateReviews);
     generateReviewTextButton.addEventListener('click', generateReviewText);
+    embedReviewsButton.addEventListener('click', embedReviews)
     loadReviews();
 </script>
 </body>

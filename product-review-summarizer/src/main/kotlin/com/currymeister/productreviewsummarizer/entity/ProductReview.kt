@@ -21,7 +21,7 @@ class ProductReview(
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "product_id", nullable = false)
-    var product: Product? = null,
+    var product: Product,
 
     @Column(nullable = false)
     var stars: String = "",

@@ -3,6 +3,7 @@ package com.currymeister.productreviewsummarizer.controller.admin
 import com.currymeister.productreviewsummarizer.dto.ReviewDetailResponse
 import com.currymeister.productreviewsummarizer.dto.ReviewOverviewResponse
 import com.currymeister.productreviewsummarizer.service.LLMReviewGenerationService
+import com.currymeister.productreviewsummarizer.service.ProductReviewEmbeddingService
 import com.currymeister.productreviewsummarizer.service.ProductReviewService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController
 class ProductReviewAdminController(
     private val productReviewService: ProductReviewService,
     private val llmReviewGenerationService: LLMReviewGenerationService,
+    private val productReviewEmbeddingService: ProductReviewEmbeddingService,
 ) {
 
     @PostMapping("/generate-mock-reviews")
@@ -42,5 +44,12 @@ class ProductReviewAdminController(
         llmReviewGenerationService.generateReviews()
 
         return "Reviews were generated successfully!"
+    }
+
+    @PostMapping("/embed-reviews")
+    fun embedReviews(): String {
+        productReviewEmbeddingService.embedProductReviews()
+
+        return "Reviews were embedded successfully!"
     }
 }
