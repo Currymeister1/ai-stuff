@@ -37,6 +37,7 @@ class VectorStoreConfig {
             .dropTableFirst(false)
             .useIndex(true)
             .indexListSize(100)
+            .searchMode(PgVectorEmbeddingStore.SearchMode.HYBRID)
             .build()
 }
 
