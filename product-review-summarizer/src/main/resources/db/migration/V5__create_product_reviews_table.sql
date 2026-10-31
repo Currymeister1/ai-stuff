@@ -4,6 +4,6 @@ CREATE TABLE product_reviews
     product_id   INTEGER REFERENCES products (id),
     stars        VARCHAR(255) NOT NULL,
     reviewer_age INT,
-    title        VARCHAR(255),
-    text         VARCHAR(255)
+    title        VARCHAR(500),
+    text         TEXT
 );

@@ -37,7 +37,8 @@ dependencies {
 
 	// Database & Migrations
 	implementation("org.postgresql:postgresql")
-	implementation("org.flywaydb:flyway-core")
+	implementation("org.springframework.boot:spring-boot-starter-flyway")
+	implementation("org.flywaydb:flyway-database-postgresql")
 	runtimeOnly("com.h2database:h2")
 
 	// Environment Variables

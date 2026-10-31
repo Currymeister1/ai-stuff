@@ -1,14 +1,15 @@
 package com.currymeister.productreviewsummarizer.service
 
+import com.currymeister.productreviewsummarizer.entity.ProductReview
+import com.currymeister.productreviewsummarizer.modal.ReviewEntryDto
 import com.currymeister.productreviewsummarizer.modal.ReviewResult
-import com.currymeister.productreviewsummarizer.modal.ReviewResults
-import com.currymeister.productreviewsummarizer.modal.ReviewsFileEntry
-import com.currymeister.productreviewsummarizer.util.FileUtil
+import com.currymeister.productreviewsummarizer.repository.ProductReviewRepository
 import org.springframework.stereotype.Service
 
 @Service
 class LLMReviewGenerationService(
-    private val reviewGeneratorService: ReviewGeneratorService
+    private val reviewGeneratorService: ReviewGeneratorService,
+    private val productReviewRepository: ProductReviewRepository,
 ) {
 
     companion object {
@@ -16,21 +17,41 @@ class LLMReviewGenerationService(
     }
 
     fun generateReviews() {
-        val reviewFileEntries = FileUtil.loadReviewsFile()
+        val reviews = productReviewRepository.findAllMissingGeneratedText()
+        if (reviews.isEmpty()) return
 
-        val reviewResults = reviewFileEntries.reviews.flatMap { reviewFileEntry ->
-            callLLM(reviewFileEntry)
+        val results = reviews
+            .groupBy { it.product?.id }
+            .values
+            .flatMap { productReviews -> generateForProduct(productReviews) }
+
+        val reviewsById = reviews.associateBy { it.id }
+        val updatedReviews = results.mapNotNull { result ->
+            reviewsById[result.reviewId]?.apply {
+                title = result.reviewTitle
+                text = result.reviewText
+            }
         }
 
-        FileUtil.writeReviewsResultFile(ReviewResults(reviewResults))
+        productReviewRepository.saveAll(updatedReviews)
     }
 
-    private fun callLLM(reviewFileEntry: ReviewsFileEntry): List<ReviewResult> =
-        reviewFileEntry.reviews
+    private fun generateForProduct(reviews: List<ProductReview>): List<ReviewResult> {
+        val productName = reviews.first().product?.productName ?: return emptyList()
+
+        return reviews
             .chunked(REVIEWS_PER_BATCH)
             .flatMap { batch ->
                 reviewGeneratorService
-                    .generateReviews(reviewFileEntry.productName, batch)
+                    .generateReviews(productName, batch.map { it.toReviewEntryDto() })
                     .reviews
             }
+    }
 }
+
+private fun ProductReview.toReviewEntryDto(): ReviewEntryDto = ReviewEntryDto(
+    reviewId = requireNotNull(id),
+    reviewerAge = reviewerAge ?: 0,
+    reviewStars = stars.toIntOrNull() ?: 0,
+    requiredTopics = requiredTopics.sortedBy { it.id }.map { it.topic },
+)
