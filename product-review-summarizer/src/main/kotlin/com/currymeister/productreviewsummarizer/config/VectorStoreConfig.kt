@@ -1,11 +1,11 @@
 package com.currymeister.productreviewsummarizer.config
 
+import com.currymeister.productreviewsummarizer.util.ProductReviewSummarizerConfigUtils
 import dev.langchain4j.data.segment.TextSegment
 import dev.langchain4j.model.embedding.EmbeddingModel
 import dev.langchain4j.model.openai.OpenAiEmbeddingModel
 import dev.langchain4j.store.embedding.EmbeddingStore
 import dev.langchain4j.store.embedding.pgvector.PgVectorEmbeddingStore
-import io.github.cdimascio.dotenv.dotenv
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
@@ -20,7 +20,7 @@ class VectorStoreConfig {
     @Bean
     fun embeddingModel(): EmbeddingModel = OpenAiEmbeddingModel
         .builder()
-        .apiKey(loadApiKey())
+        .apiKey(ProductReviewSummarizerConfigUtils.loadApiKey())
         .modelName("text-embedding-3-small")
         .build()
 
@@ -38,11 +38,6 @@ class VectorStoreConfig {
             .useIndex(true)
             .indexListSize(100)
             .build()
-}
-
-private fun loadApiKey(): String {
-    val dotenv = dotenv()
-    return dotenv["OPENAI_API_KEY"]
 }
 
 @ConfigurationProperties(prefix = "app.vector")
