@@ -45,6 +45,7 @@ dependencies {
 
 	// LangChain4j (Managed uniformly by the BOM version 1.22.0)
 	implementation(platform("dev.langchain4j:langchain4j-bom:1.22.0"))
+	implementation("dev.langchain4j:langchain4j-pgvector:1.23.0-beta33")
 	implementation("dev.langchain4j:langchain4j")
 	implementation("dev.langchain4j:langchain4j-kotlin")
 	implementation("dev.langchain4j:langchain4j-open-ai")

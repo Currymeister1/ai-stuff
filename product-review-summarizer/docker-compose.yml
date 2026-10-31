@@ -1,5 +1,5 @@
 services:
-  taskflow:
+  product_review_summarizer:
     container_name: prs
     build:
       context: .
@@ -11,23 +11,23 @@ services:
     ports:
       - "8080:8080"
     environment:
-      DB_URL: jdbc:postgresql://db:5432/postgres
+      DB_URL: jdbc:postgresql://db_prs:5432/prs
       PG_USER: postgres
       PG_PASSWORD: postgres
     depends_on:
-      - db-prs
-  db-prs:
+      - db_prs
+  db_prs:
+    image: pgvector/pgvector:pg16
     container_name: db-prs
-    image: postgres:12
     environment:
+      POSTGRES_DB: prs
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: postgres
     ports:
       - "5432:5432"
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - pgvector-data:/var/lib/postgresql/data
 
 volumes:
-  pgdata: {}
+  pgvector-data:
 

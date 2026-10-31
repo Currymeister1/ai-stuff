@@ -13,7 +13,7 @@ class AiModelConfig {
 
     @Bean
     fun chatModel(): ChatModel {
-        val apiKey = loadApiKey() // Your custom programmatic key loader
+        val apiKey = loadApiKey()
 
         return OpenAiChatModel.builder()
             .apiKey(apiKey)

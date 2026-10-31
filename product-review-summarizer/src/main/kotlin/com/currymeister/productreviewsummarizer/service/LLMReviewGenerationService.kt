@@ -7,7 +7,9 @@ import com.currymeister.productreviewsummarizer.util.FileUtil
 import org.springframework.stereotype.Service
 
 @Service
-class LLMReviewGenerationService(private val reviewGeneratorService: ReviewGeneratorService) {
+class LLMReviewGenerationService(
+    private val reviewGeneratorService: ReviewGeneratorService
+) {
 
     companion object {
         private const val REVIEWS_PER_BATCH = 10
