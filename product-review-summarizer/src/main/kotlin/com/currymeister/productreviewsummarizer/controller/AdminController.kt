@@ -8,4 +8,7 @@ class AdminController {
 
     @GetMapping("/admin")
     fun admin(): String = "forward:/admin.html"
+
+    @GetMapping("/admin/products/new")
+    fun createProductPage(): String = "forward:/create-product.html"
 }

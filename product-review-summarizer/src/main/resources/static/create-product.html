@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProRevSum Admin &middot; Create product</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            min-height: 100vh;
+            background-color: #ffffff;
+            padding: 32px 20px;
+            color: #202124;
+        }
+
+        .page {
+            width: 100%;
+            max-width: 640px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #4285f4;
+        }
+
+        .home-link {
+            font-size: 14px;
+            font-weight: bold;
+            color: #4285f4;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .home-link:hover {
+            text-decoration: underline;
+        }
+
+        .card {
+            border: 1px solid #dfe1e5;
+            border-radius: 8px;
+            box-shadow: 0 1px 6px rgba(32, 33, 36, 0.08);
+            padding: 24px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 18px;
+        }
+
+        .field:last-child {
+            margin-bottom: 0;
+        }
+
+        label {
+            font-size: 14px;
+            font-weight: bold;
+            color: #3c4043;
+        }
+
+        .hint {
+            font-size: 12px;
+            color: #5f6368;
+        }
+
+        input,
+        select {
+            height: 42px;
+            padding: 0 12px;
+            font-size: 14px;
+            font-family: inherit;
+            color: #202124;
+            background-color: #ffffff;
+            border: 1px solid #dfe1e5;
+            border-radius: 6px;
+            outline: none;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #4285f4;
+            box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.2);
+        }
+
+        fieldset {
+            border: 1px solid #dfe1e5;
+            border-radius: 8px;
+            padding: 18px;
+            margin-bottom: 18px;
+        }
+
+        legend {
+            padding: 0 6px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #3c4043;
+        }
+
+        .field-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .message {
+            min-height: 20px;
+            margin-bottom: 16px;
+            font-size: 14px;
+        }
+
+        .message.error {
+            color: #d93025;
+        }
+
+        .message.success {
+            color: #188038;
+        }
+
+        .submit-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 44px;
+            padding: 0 24px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #ffffff;
+            background-color: #4285f4;
+            border: none;
+            border-radius: 22px;
+            cursor: pointer;
+        }
+
+        .submit-button:hover:not(:disabled) {
+            background-color: #3367d6;
+        }
+
+        .submit-button:disabled {
+            background-color: #9aa0a6;
+            cursor: not-allowed;
+        }
+
+        @media (max-width: 520px) {
+            .field-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+    <header class="page-header">
+        <h1 class="page-title">Create product</h1>
+        <a class="home-link" href="/admin">&larr; Back to admin</a>
+    </header>
+
+    <form id="create-product-form" class="card" novalidate>
+        <div class="field">
+            <label for="product-name">Product name</label>
+            <input id="product-name" name="productName" type="text" required autocomplete="off">
+        </div>
+
+        <div class="field">
+            <label for="category">Category</label>
+            <input id="category" name="category" type="text" list="category-options" required autocomplete="off">
+            <datalist id="category-options">
+                <option value="Book"></option>
+                <option value="Kitchen appliance"></option>
+                <option value="Music"></option>
+                <option value="Smartphone"></option>
+                <option value="Construction appliance"></option>
+            </datalist>
+        </div>
+
+        <fieldset>
+            <legend>Review config</legend>
+
+            <div class="field-row">
+                <div class="field">
+                    <label for="age-min">Reviewer age min</label>
+                    <input id="age-min" name="ageMin" type="number" min="1" max="120" value="18" required>
+                </div>
+
+                <div class="field">
+                    <label for="age-max">Reviewer age max</label>
+                    <input id="age-max" name="ageMax" type="number" min="1" max="120" value="65" required>
+                </div>
+            </div>
+
+            <div class="field">
+                <label for="review-count">Number of reviews</label>
+                <input id="review-count" name="reviewCount" type="number" min="0" max="1000" value="10" required>
+                <span class="hint">Mock reviews generated for this product per run.</span>
+            </div>
+
+            <div class="field">
+                <label for="general-review-stars">General review stars</label>
+                <select id="general-review-stars" name="generalReviewStars" required>
+                    <option value="1">1 star</option>
+                    <option value="2">2 stars</option>
+                    <option value="3" selected>3 stars</option>
+                    <option value="4">4 stars</option>
+                    <option value="5">5 stars</option>
+                </select>
+                <span class="hint">Most generated reviews will match this rating.</span>
+            </div>
+        </fieldset>
+
+        <div id="message" class="message" role="status" aria-live="polite"></div>
+
+        <button id="submit-button" class="submit-button" type="submit">Create product</button>
+    </form>
+</div>
+
+<script>
+    const form = document.getElementById('create-product-form');
+    const submitButton = document.getElementById('submit-button');
+    const message = document.getElementById('message');
+
+    const productNameInput = document.getElementById('product-name');
+    const categoryInput = document.getElementById('category');
+    const ageMinInput = document.getElementById('age-min');
+    const ageMaxInput = document.getElementById('age-max');
+    const reviewCountInput = document.getElementById('review-count');
+    const generalReviewStarsInput = document.getElementById('general-review-stars');
+
+    function setMessage(text, type) {
+        message.textContent = text;
+        message.className = 'message' + (type ? ' ' + type : '');
+    }
+
+    function buildPayload() {
+        return {
+            product_name: productNameInput.value.trim(),
+            category: categoryInput.value.trim(),
+            review_config: {
+                age_min: Number(ageMinInput.value),
+                age_max: Number(ageMaxInput.value),
+                review_count: Number(reviewCountInput.value),
+                general_review_stars: Number(generalReviewStarsInput.value)
+            }
+        };
+    }
+
+    async function createProduct(event) {
+        event.preventDefault();
+        setMessage('');
+
+        const payload = buildPayload();
+
+        if (!payload.product_name) {
+            setMessage('Product name is required.', 'error');
+            productNameInput.focus();
+            return;
+        }
+
+        if (!payload.category) {
+            setMessage('Category is required.', 'error');
+            categoryInput.focus();
+            return;
+        }
+
+        if (payload.review_config.age_min > payload.review_config.age_max) {
+            setMessage('Minimum reviewer age cannot be greater than maximum reviewer age.', 'error');
+            ageMinInput.focus();
+            return;
+        }
+
+        submitButton.disabled = true;
+        submitButton.textContent = 'Creating\u2026';
+
+        try {
+            const response = await fetch('/admin/products', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            const body = await response.json().catch(() => null);
+
+            if (!response.ok) {
+                throw new Error((body && body.error) || (response.status + ' ' + response.statusText));
+            }
+
+            setMessage(
+                'Product "' + body.product_name + '" created with ID ' + body.product_id + '.',
+                'success'
+            );
+            form.reset();
+            productNameInput.focus();
+        } catch (error) {
+            setMessage('Failed to create product: ' + error.message, 'error');
+        } finally {
+            submitButton.disabled = false;
+            submitButton.textContent = 'Create product';
+        }
+    }
+
+    form.addEventListener('submit', createProduct);
+</script>
+</body>
+</html>

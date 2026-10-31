@@ -59,6 +59,9 @@
         }
 
         .generate-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             height: 44px;
             padding: 0 24px;
             font-size: 14px;
@@ -68,6 +71,7 @@
             border: none;
             border-radius: 22px;
             cursor: pointer;
+            text-decoration: none;
         }
 
         .generate-button:hover:not(:disabled) {
@@ -195,6 +199,7 @@
     </header>
 
     <div class="toolbar">
+        <a class="generate-button" href="/admin/products/new">Create product</a>
         <button id="generate-button" class="generate-button" type="button">Generate mock reviews</button>
         <button id="generate-review-text-button" class="generate-button" type="button">Generate Review Texts with LLM</button>
     </div>
