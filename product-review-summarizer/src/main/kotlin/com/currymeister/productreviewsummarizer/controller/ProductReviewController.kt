@@ -1,7 +1,7 @@
 package com.currymeister.productreviewsummarizer.controller
 
-import com.currymeister.productreviewsummarizer.modal.ReviewDetailResponse
-import com.currymeister.productreviewsummarizer.modal.ReviewFileEntriesResponse
+import com.currymeister.productreviewsummarizer.dto.ReviewDetailResponse
+import com.currymeister.productreviewsummarizer.dto.ReviewOverviewResponse
 import com.currymeister.productreviewsummarizer.service.LLMReviewGenerationService
 import com.currymeister.productreviewsummarizer.service.ProductReviewService
 import org.springframework.http.ResponseEntity
@@ -26,7 +26,7 @@ class ProductReviewController(
     }
 
     @GetMapping("/mock-reviews")
-    fun getMockReviews(): ReviewFileEntriesResponse =
+    fun getMockReviews(): ReviewOverviewResponse =
         productReviewService.loadReviewsWithGeneratedTitles()
 
     @GetMapping("/mock-reviews/{reviewId}")

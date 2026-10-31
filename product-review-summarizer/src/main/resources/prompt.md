@@ -95,9 +95,11 @@ Return exactly one JSON object with a `reviews` array.
 
 For each input specification, return exactly one corresponding review containing only:
 
-* `review_id`: Copy the input identifier exactly.
-* `review_title`: Generated title as a string.
-* `review_text`: Generated review text as a string.
+* `reviewId`: Copy the input `review_id` value exactly.
+* `reviewTitle`: Generated title as a string.
+* `reviewText`: Generated review text as a string.
+
+Output keys are camelCase, even though input keys are snake_case. Use the exact key names above.
 
 Preserve the input order and include every review identifier exactly once.
 

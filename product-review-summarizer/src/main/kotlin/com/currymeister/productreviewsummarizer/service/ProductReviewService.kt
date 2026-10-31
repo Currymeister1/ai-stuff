@@ -2,10 +2,10 @@ package com.currymeister.productreviewsummarizer.service
 
 import com.currymeister.productreviewsummarizer.entity.ProductReview
 import com.currymeister.productreviewsummarizer.entity.RequiredTopic
-import com.currymeister.productreviewsummarizer.modal.ReviewDetailResponse
-import com.currymeister.productreviewsummarizer.modal.ReviewEntryResponse
-import com.currymeister.productreviewsummarizer.modal.ReviewFileEntriesResponse
-import com.currymeister.productreviewsummarizer.modal.ReviewsFileEntryResponse
+import com.currymeister.productreviewsummarizer.dto.ProductReviewsResponse
+import com.currymeister.productreviewsummarizer.dto.ReviewDetailResponse
+import com.currymeister.productreviewsummarizer.dto.ReviewOverviewResponse
+import com.currymeister.productreviewsummarizer.dto.ReviewSummaryResponse
 import com.currymeister.productreviewsummarizer.repository.ProductRepository
 import com.currymeister.productreviewsummarizer.repository.ProductReviewConfigRepository
 import com.currymeister.productreviewsummarizer.repository.ProductReviewRepository
@@ -45,16 +45,16 @@ class ProductReviewService(
     }
 
     @Transactional(readOnly = true)
-    fun loadReviewsWithGeneratedTitles(): ReviewFileEntriesResponse {
+    fun loadReviewsWithGeneratedTitles(): ReviewOverviewResponse {
         val reviewsByProductId = productReviewRepository.findAllWithProductAndTopics()
             .groupBy { it.product?.id }
 
-        return ReviewFileEntriesResponse(
-            reviews = productRepository.findAllByOrderByIdAsc().map { product ->
-                ReviewsFileEntryResponse(
+        return ReviewOverviewResponse(
+            products = productRepository.findAllByOrderByIdAsc().map { product ->
+                ProductReviewsResponse(
                     productId = requireNotNull(product.id),
                     productName = product.productName,
-                    reviews = reviewsByProductId[product.id].orEmpty().map { it.toEntryResponse() },
+                    reviews = reviewsByProductId[product.id].orEmpty().map { it.toReviewSummaryResponse() },
                 )
             },
         )
@@ -85,12 +85,12 @@ class ProductReviewService(
     }
 }
 
-private fun ProductReview.toEntryResponse(): ReviewEntryResponse = ReviewEntryResponse(
+private fun ProductReview.toReviewSummaryResponse(): ReviewSummaryResponse = ReviewSummaryResponse(
     reviewId = requireNotNull(id),
     reviewerAge = reviewerAge ?: 0,
     reviewStars = stars.toIntOrNull() ?: 0,
     requiredTopics = requiredTopicNames(),
-    generatedReviewTitle = title,
+    reviewTitle = title,
 )
 
 private fun ProductReview.requiredTopicNames(): List<String> =

@@ -1,8 +1,8 @@
 package com.currymeister.productreviewsummarizer.service
 
 import com.currymeister.productreviewsummarizer.entity.ProductReview
-import com.currymeister.productreviewsummarizer.modal.ReviewEntryDto
-import com.currymeister.productreviewsummarizer.modal.ReviewResult
+import com.currymeister.productreviewsummarizer.dto.GeneratedReviewDto
+import com.currymeister.productreviewsummarizer.dto.ReviewSpecificationDto
 import com.currymeister.productreviewsummarizer.repository.ProductReviewRepository
 import org.springframework.stereotype.Service
 
@@ -36,20 +36,20 @@ class LLMReviewGenerationService(
         productReviewRepository.saveAll(updatedReviews)
     }
 
-    private fun generateForProduct(reviews: List<ProductReview>): List<ReviewResult> {
+    private fun generateForProduct(reviews: List<ProductReview>): List<GeneratedReviewDto> {
         val productName = reviews.first().product?.productName ?: return emptyList()
 
         return reviews
             .chunked(REVIEWS_PER_BATCH)
             .flatMap { batch ->
                 reviewGeneratorService
-                    .generateReviews(productName, batch.map { it.toReviewEntryDto() })
+                    .generateReviews(productName, batch.map { it.toReviewSpecificationDto() })
                     .reviews
             }
     }
 }
 
-private fun ProductReview.toReviewEntryDto(): ReviewEntryDto = ReviewEntryDto(
+private fun ProductReview.toReviewSpecificationDto(): ReviewSpecificationDto = ReviewSpecificationDto(
     reviewId = requireNotNull(id),
     reviewerAge = reviewerAge ?: 0,
     reviewStars = stars.toIntOrNull() ?: 0,

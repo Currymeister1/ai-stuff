@@ -293,11 +293,11 @@
 
                 const titleCell = document.createElement('td');
 
-                if (review.generated_review_title) {
+                if (review.review_title) {
                     const link = document.createElement('a');
                     link.className = 'review-link';
                     link.href = '/review-detail.html?reviewId=' + encodeURIComponent(review.review_id);
-                    link.textContent = review.generated_review_title;
+                    link.textContent = review.review_title;
                     titleCell.appendChild(link);
                 } else {
                     titleCell.textContent = '\u2014';
@@ -316,7 +316,7 @@
     }
 
     function renderReviews(data) {
-        const products = Array.isArray(data.reviews) ? data.reviews : [];
+        const products = Array.isArray(data.products) ? data.products : [];
         const totalReviews = products.reduce(
             (total, product) => total + (product.reviews || []).length,
             0
