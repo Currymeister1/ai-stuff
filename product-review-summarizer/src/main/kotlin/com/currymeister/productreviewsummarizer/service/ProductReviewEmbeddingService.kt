@@ -1,14 +1,12 @@
 package com.currymeister.productreviewsummarizer.service
 
-import com.currymeister.productreviewsummarizer.entity.Product
 import com.currymeister.productreviewsummarizer.entity.ProductReview
 import com.currymeister.productreviewsummarizer.repository.ProductRepository
 import com.currymeister.productreviewsummarizer.repository.ProductReviewRepository
+import com.currymeister.productreviewsummarizer.service.ai.ProductSummarizerAssistant
 import dev.langchain4j.data.document.Metadata
-import dev.langchain4j.data.embedding.Embedding
 import dev.langchain4j.data.segment.TextSegment
 import dev.langchain4j.model.embedding.EmbeddingModel
-import dev.langchain4j.store.embedding.EmbeddingSearchRequest
 import dev.langchain4j.store.embedding.EmbeddingStore
 import org.springframework.stereotype.Service
 
@@ -18,6 +16,7 @@ class ProductReviewEmbeddingService(
     private val embeddingModel: EmbeddingModel,
     private val productReviewRepository: ProductReviewRepository,
     private val productRepository: ProductRepository,
+    private val productSummarizerAssistant: ProductSummarizerAssistant
 ) {
     fun embedProductReviews(batchSize: Int = 100) {
         productReviewRepository.findAllWithGeneratedText() // join fetch product
@@ -30,27 +29,16 @@ class ProductReviewEmbeddingService(
     }
 
     fun searchReviews(question: String): Map<String, String> {
-        val questionEmbedding: Embedding = embeddingModel.embed(question).content()
+        val result = productSummarizerAssistant.summarize(question)
 
-        val searchRequest: EmbeddingSearchRequest = EmbeddingSearchRequest
-            .builder()
-            .queryEmbedding(questionEmbedding)
-            .query(question)
-            .maxResults(5)
-            .build()
+        println("Answer: ${result.content()}")
 
-        return embeddingStore
-            .search(searchRequest)
-            .matches()
-            .map { match ->
-                val productId = match.embedded().metadata().getInteger("productId")!!
-                getProductName(productId) to match.embedded().text()
-            }.toMap()
+        result.sources().forEach { source ->
+            println("SOURCE: ${source.textSegment().text()}")
+            println("METADATA: ${source.textSegment().metadata()}")
+        }
 
-    }
-
-    private fun getProductName(id: Int): String {
-        return productRepository.findById(id).map(Product::productName).orElseThrow()
+        return mapOf(question to result.content())
     }
 
     private fun toSegment(review: ProductReview): TextSegment =

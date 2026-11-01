@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration
 class AiModelConfig {
 
     @Bean
-    fun chatModel(): ChatModel {
+    fun reviewGeneratorChatModel(): ChatModel {
         val apiKey = ProductReviewSummarizerConfigUtils.loadApiKey()
 
         return OpenAiChatModel.builder()
@@ -23,6 +23,18 @@ class AiModelConfig {
             .supportedCapabilities(setOf(Capability.RESPONSE_FORMAT_JSON_SCHEMA))
             .responseFormat(ResponseFormat.JSON)
             .strictJsonSchema(true)
+            .logRequests(true)
+            .logResponses(true)
+            .build()
+    }
+
+    @Bean
+    fun reviewSummarizerChatModel(): ChatModel {
+        val apiKey = ProductReviewSummarizerConfigUtils.loadApiKey()
+
+        return OpenAiChatModel.builder()
+            .apiKey(apiKey)
+            .modelName("gpt-4o-mini")
             .logRequests(true)
             .logResponses(true)
             .build()

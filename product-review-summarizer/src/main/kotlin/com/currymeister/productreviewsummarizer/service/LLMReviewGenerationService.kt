@@ -4,11 +4,12 @@ import com.currymeister.productreviewsummarizer.entity.ProductReview
 import com.currymeister.productreviewsummarizer.dto.GeneratedReviewDto
 import com.currymeister.productreviewsummarizer.dto.ReviewSpecificationDto
 import com.currymeister.productreviewsummarizer.repository.ProductReviewRepository
+import com.currymeister.productreviewsummarizer.service.ai.ReviewGeneratorAssistant
 import org.springframework.stereotype.Service
 
 @Service
 class LLMReviewGenerationService(
-    private val reviewGeneratorService: ReviewGeneratorService,
+    private val reviewGeneratorAssistant: ReviewGeneratorAssistant,
     private val productReviewRepository: ProductReviewRepository,
 ) {
 
@@ -42,7 +43,7 @@ class LLMReviewGenerationService(
         return reviews
             .chunked(REVIEWS_PER_BATCH)
             .flatMap { batch ->
-                reviewGeneratorService
+                reviewGeneratorAssistant
                     .generateReviews(productName, batch.map { it.toReviewSpecificationDto() })
                     .reviews
             }
